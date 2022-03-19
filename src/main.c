@@ -147,6 +147,7 @@ UART1_DeInit();
               UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE);
 
   printf("I2C_DeInit \n");
+  I2C_DeInit();
   /* I2C Initialize */
   I2C_Init(I2C_SPEED, 0xA0, I2C_DUTYCYCLE_2, I2C_ACK_CURR, I2C_ADDMODE_7BIT, 16);
 printf("I2C_ITConfig \n");
@@ -161,7 +162,22 @@ printf("TxBuffer \n");
     TxBuffer[i] = i;
 printf("I2C_GenerateSTART \n");
   /* Send START condition */
-  I2C_GenerateSTART(ENABLE);
+  //I2C_GenerateSTART(ENABLE);
+  printf("checking function state \n");
+  assert_param(IS_FUNCTIONALSTATE_OK(ENABLE));
+  printf("checking function state done \n");
+  if (ENABLE != DISABLE)
+  {
+	  printf("setting registers %d\n",I2C->CR2);
+    /* Generate a START condition */
+    I2C->CR2 |= I2C_CR2_START;
+  }
+  else /* NewState == DISABLE */
+  {
+    /* Disable the START condition generation */
+    I2C->CR2 &= (uint8_t)(~I2C_CR2_START);
+  }
+
   printf("NumOfBytes \n");
   while (NumOfBytes);
   printf("I2C_GetFlagStatus \n");
