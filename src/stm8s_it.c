@@ -392,7 +392,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   */
 INTERRUPT_HANDLER(I2C_IRQHandler, 19)
 {
-	printf("I2C_Interrupt \n");
+	//printf("I2C_Interrupt \n");
   switch (I2C_GetLastEvent())
   {
       /* EV5 */
