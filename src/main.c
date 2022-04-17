@@ -168,7 +168,7 @@ printf("I2C_GenerateSTART \n");
   printf("checking function state done \n");
   if (ENABLE != DISABLE)
   {
-	  printf("setting registers %d\n",I2C->CR2);
+	  //printf("setting registers %d\n",I2C->CR2);
     /* Generate a START condition */
     I2C->CR2 |= I2C_CR2_START;
   }
